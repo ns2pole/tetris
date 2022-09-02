@@ -19,24 +19,27 @@
         <script>
             const initialPosition = {x: 2, y: 1}
             let field = new Field();
-            let gc = document.getElementById("canvas").getContext("2d");
+            const gc = document.getElementById("canvas").getContext("2d");
             let shape_s = new Shape_S(initialPosition.x, initialPosition.y, BLOCK_SIZE)
             let controlledFourPiece = shape_s;
+
             function timeElapse() {
-                gc.clearRect(0, 0, ONE_CELL_SIZE * field.map[0].length , ONE_CELL_SIZE * field.map.length);
+                gc.clearRect(0, 0, ONE_CELL_SIZE * field.getWidth() , ONE_CELL_SIZE * field.getDepth());
                 field.draw(gc);
-                //衝突判定
-                if(controlledFourPiece.y < field.getDepth() - 1) {
-                    controlledFourPiece = new Shape_S(controlledFourPiece.x, controlledFourPiece.y + 1, BLOCK_SIZE)
+                let virtualFourPiece = new Shape_S(controlledFourPiece.x, controlledFourPiece.y + 1, BLOCK_SIZE)
+                if(virtualFourPiece.canBePlacedIn(field)) {
+                    //newしないと、controlledFourPiece.yを+1してもblocksのy座標が変わらない
+                    controlledFourPiece = new Shape_S(controlledFourPiece.x, controlledFourPiece.y + 1, BLOCK_SIZE);
                 }
                 controlledFourPiece.draw(gc)
             }
+
             function init() {
                 let startButton = document.getElementById("startButton")
                 let pauseButton = document.getElementById("pauseButton")
                 let music = document.getElementById("music")
                 field.draw(gc)
-                shape_s.draw(gc)
+                controlledFourPiece.draw(gc)
                 startButton.addEventListener("click", function() {
                     music.play()
                     setInterval(timeElapse, 1000)
@@ -47,12 +50,12 @@
             }
 
             document.addEventListener('keypress', function(e) {
-                gc.clearRect(0, 0, oneCellSize * field[0].length , oneCellSize * field.length);
+                gc.clearRect(0, 0, ONE_CELL_SIZE * field.getWidth() , ONE_CELL_SIZE * field.getDepth());
                 if(e.key === "l") controlledFourPieces.x++
                 if(e.key === "r") controlledFourPieces.x--
                 if(e.key === "u") controlledFourPieces.y--
                 if(e.key === "d") controlledFourPieces.y++
-                controlledFourPieces.draw(gc, blockImg)
+                controlledFourPieces.draw(gc)
                 for(let i = 0; i < walls.length; i++) {
                     gc.drawImage(wallImg, walls[i].x * oneCellSize, walls[i].y * oneCellSize, wallSize, wallSize)
                 }
