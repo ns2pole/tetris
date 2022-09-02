@@ -6,9 +6,9 @@ class Block {
     }
 
     canBePlacedIn(field) {
-        if( field.map[this.y][this.x] == FIXED_BLOCK_CODE ){
+        if(field.map[this.y][this.x] == FIXED_BLOCK_CODE ){
             return false;
-        } else if( field.map[this.y][this.x] == WALL_CODE ){
+        } else if(field.map[this.y][this.x] == WALL_CODE ){
             return false;
         } else {
             return true;

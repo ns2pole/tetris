@@ -18,19 +18,19 @@
         <img id="blockImg" src="block.png" style="display:none" />
         <img id="wallImg" src="wall.png" style="display:none" />
         <script>
-            const initialPosition = {x: 2, y: 1}
             let field = new Field();
             const gc = document.getElementById("canvas").getContext("2d");
-            let controlledFourPieces = FourPieces.getShapeRamdomly(initialPosition.x, initialPosition.y);
+            let controlledFourPieces = FourPieces.getInitFourPieces();
             function timeElapse() {
                 gc.clearRect(0, 0, ONE_CELL_SIZE * field.getWidth() , ONE_CELL_SIZE * field.getDepth());
-                let virtualFourPiece = new Shape_S(controlledFourPieces.x, controlledFourPieces.y + 1)
+                let virtualFourPiece = controlledFourPieces.getInstanceMovedDown();
                 if(virtualFourPiece.canBePlacedIn(field)) {
                     //newしないと、controlledFourPieces.yを+1してもblocksのy座標が変わらない
-                    controlledFourPieces = new Shape_S(controlledFourPieces.x, controlledFourPieces.y + 1);
+                    controlledFourPieces = virtualFourPiece;
                 } else {
                     field.place(controlledFourPieces);
-                    controlledFourPieces = new Shape_S(initialPosition.x, initialPosition.y);
+                    const shapeCode = FourPieces.getShapeCodeRandomly()
+                    controlledFourPieces = FourPieces.getInitFourPieces();
                 }
                 field.draw(gc);
                 controlledFourPieces.draw(gc)
@@ -61,11 +61,14 @@
 
 
             document.addEventListener('keypress', function(e) {
+                let virtualFourPiecesR = controlledFourPieces.getInstanceMovedRight();
+                let virtualFourPiecesL = controlledFourPieces.getInstanceMovedLeft();
+                let virtualFourPiecesD = controlledFourPieces.getInstanceMovedDown();
+                if(e.key === "r" && virtualFourPiecesR.canBePlacedIn(field)) controlledFourPieces = virtualFourPiecesR;
+                if(e.key === "l" && virtualFourPiecesL.canBePlacedIn(field)) controlledFourPieces = virtualFourPiecesL;
+                if(e.key === "d" && virtualFourPiecesD.canBePlacedIn(field)) controlledFourPieces = virtualFourPiecesD;
                 gc.clearRect(0, 0, ONE_CELL_SIZE * field.getWidth() , ONE_CELL_SIZE * field.getDepth());
-                if(e.key === "l") controlledFourPieces = new Shape_S(controlledFourPieces.x + 1, controlledFourPieces.y);
-                if(e.key === "r") controlledFourPieces = new Shape_S(controlledFourPieces.x - 1, controlledFourPieces.y);
-                if(e.key === "u") controlledFourPieces = new Shape_S(controlledFourPieces.x, controlledFourPieces.y - 1);
-                if(e.key === "d") controlledFourPieces = new Shape_S(controlledFourPieces.x, controlledFourPieces.y + 1);
+                field.draw(gc)
                 controlledFourPieces.draw(gc)
             })
         </script>

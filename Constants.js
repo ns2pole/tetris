@@ -1,4 +1,8 @@
+const INITIAL_POSITION = {x: 2, y: 1}
 const ONE_CELL_SIZE = 30
 const BLOCK_SIZE = ONE_CELL_SIZE
 const WALL_CODE = 1;
 const FIXED_BLOCK_CODE = 2;
+const HOW_MANY_SHAPES = 2
+const SHAPE_CODE_OF_SHAPE_S = 0;
+const SHAPE_CODE_OF_SHAPE_T = 1;

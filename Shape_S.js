@@ -6,6 +6,7 @@ class Shape_S extends FourPieces {
         this.blocks.push(new Block(this.x + 1, this.y, BLOCK_SIZE));
         this.blocks.push(new Block(this.x - 1, this.y + 1, BLOCK_SIZE));
         this.blocks.push(new Block(this.x, this.y + 1, BLOCK_SIZE));
+        this.shapeCode = SHAPE_CODE_OF_SHAPE_S;
     }
 
     draw(context2d) {
@@ -13,5 +14,6 @@ class Shape_S extends FourPieces {
             this.blocks[i].draw(context2d);
         }
     }
+
 
 }
