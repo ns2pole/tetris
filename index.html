@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <script src="./Block.js"></script>
+        <script src="./Wall.js"></script>
+        <script src="./FourPiece.js"></script>
+        <script src="./Shape_S.js"></script>
+        <script src="./Field.js"></script>
+        <script src="./Constants.js"></script>
+    </head>
+    <body onLoad="init()">
+        <button style="width:120px; height:120px;"id="startButton">START</button>
+        <button style="width:120px; height:120px;"id="pauseButton">PAUSE</button>
+        <canvas id="canvas" style="background-color:yellow;" height="1000" width="1000">
+        </canvas>
+        <audio id="music" src="./47.mp3"></audio>
+        <img id="blockImg" src="block.png" style="display:none" />
+        <img id="wallImg" src="wall.png" style="display:none" />
+        <script>
+            const initialPosition = {x: 2, y: 1}
+            let field = new Field();
+            let gc = document.getElementById("canvas").getContext("2d");
+            let shape_s = new Shape_S(initialPosition.x, initialPosition.y, BLOCK_SIZE)
+            let controlledFourPiece = shape_s;
+            function timeElapse() {
+                gc.clearRect(0, 0, ONE_CELL_SIZE * field.map[0].length , ONE_CELL_SIZE * field.map.length);
+                field.draw(gc);
+                //衝突判定
+                if(controlledFourPiece.y < field.getDepth() - 1) {
+                    controlledFourPiece = new Shape_S(controlledFourPiece.x, controlledFourPiece.y + 1, BLOCK_SIZE)
+                }
+                controlledFourPiece.draw(gc)
+            }
+            function init() {
+                let startButton = document.getElementById("startButton")
+                let pauseButton = document.getElementById("pauseButton")
+                let music = document.getElementById("music")
+                field.draw(gc)
+                shape_s.draw(gc)
+                startButton.addEventListener("click", function() {
+                    music.play()
+                    setInterval(timeElapse, 1000)
+                })
+                pauseButton.addEventListener("click", function() {
+                    music.pause()
+                })
+            }
+
+            document.addEventListener('keypress', function(e) {
+                gc.clearRect(0, 0, oneCellSize * field[0].length , oneCellSize * field.length);
+                if(e.key === "l") controlledFourPieces.x++
+                if(e.key === "r") controlledFourPieces.x--
+                if(e.key === "u") controlledFourPieces.y--
+                if(e.key === "d") controlledFourPieces.y++
+                controlledFourPieces.draw(gc, blockImg)
+                for(let i = 0; i < walls.length; i++) {
+                    gc.drawImage(wallImg, walls[i].x * oneCellSize, walls[i].y * oneCellSize, wallSize, wallSize)
+                }
+            })
+        </script>
+    </body>
+</html>
