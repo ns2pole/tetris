@@ -1,4 +1,4 @@
 const ONE_CELL_SIZE = 30
 const BLOCK_SIZE = ONE_CELL_SIZE
 const WALL_CODE = 1;
-const FIX_BLOCK_CODE = 2;
+const FIXED_BLOCK_CODE = 2;

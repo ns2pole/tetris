@@ -31,7 +31,7 @@ class Field {
         for( let i = 0; i < this.map.length; i++ ){
             for( let j = 0; j < this.map[i].length; j++ ){
                 //固まったブロックは2で表現する。
-                if( this.map[i][j] == FIX_BLOCK_CODE ){
+                if( this.map[i][j] == FIXED_BLOCK_CODE ){
                     blocks.push(new Block(j, i, BLOCK_SIZE) )
                 }
             }
@@ -61,6 +61,11 @@ class Field {
         for( let i = 0; i < blocks.length; i++ ){
             blocks[i].draw(context2d);
         }
+    }
 
+    place(fourPiece) {
+        for( let i = 0; i < fourPiece.blocks.length; i++ ){
+            this.map[fourPiece.blocks[i].y][fourPiece.blocks[i].x] = FIXED_BLOCK_CODE;
+        }
     }
 }

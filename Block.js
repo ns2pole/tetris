@@ -2,12 +2,11 @@ class Block {
     constructor(xPosition, yPosition) {
         this.x = xPosition;
         this.y = yPosition;
-        this.shape = 1;
         this.img = document.getElementById("blockImg");
     }
 
     canBePlacedIn(field) {
-        if( field.map[this.y][this.x] == FIX_BLOCK_CODE ){
+        if( field.map[this.y][this.x] == FIXED_BLOCK_CODE ){
             return false;
         } else if( field.map[this.y][this.x] == WALL_CODE ){
             return false;
