@@ -23,7 +23,7 @@
             let controlledFourPieces = FourPieces.getInitFourPieces();
             function timeElapse() {
                 gc.clearRect(0, 0, ONE_CELL_SIZE * field.getWidth() , ONE_CELL_SIZE * field.getDepth());
-                let virtualFourPiece = controlledFourPieces.getInstanceMovedDown();
+                const virtualFourPiece = controlledFourPieces.getInstanceMovedDown();
                 if(virtualFourPiece.canBePlacedIn(field)) {
                     //newしないと、controlledFourPieces.yを+1してもblocksのy座標が変わらない
                     controlledFourPieces = virtualFourPiece;
@@ -37,9 +37,9 @@
             }
 
             function init() {
-                let startButton = document.getElementById("startButton")
-                let pauseButton = document.getElementById("pauseButton")
-                let music = document.getElementById("music")
+                const startButton = document.getElementById("startButton")
+                const pauseButton = document.getElementById("pauseButton")
+                const music = document.getElementById("music")
                 field.draw(gc)
                 controlledFourPieces.draw(gc)
                 startButton.addEventListener("click", function() {
@@ -51,11 +51,8 @@
                 })
             }
 
-            //randomに出現させるためにshapecodeがいりそう
             //回転含めるとshape多すぎるから多過ぎるから回転が要りそう
-            //壁に対して動かした時のバグ修正
             //shapeごとに色分け
-            //形が勝手にshape_sに変わってしまうバグ
             //回転のkeypressイベント
             //一行埋めたら消す→ブロックは消えた分落下する
 
