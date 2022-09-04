@@ -7,13 +7,13 @@
         <script src="./Shape_S.js"></script>
         <script src="./Shape_T.js"></script>
         <script src="./Field.js"></script>
+        <script src="./Vec2D.js"></script>
         <script src="./Constants.js"></script>
     </head>
     <body onLoad="init()">
         <button style="width:120px; height:120px;"id="startButton">START</button>
         <button style="width:120px; height:120px;"id="pauseButton">PAUSE</button>
-        <canvas id="canvas" style="background-color:yellow;" height="1000" width="1000">
-        </canvas>
+        <canvas id="canvas" style="background-color:yellow;" height="1000" width="1000"></canvas>
         <audio id="music" src="./47.mp3"></audio>
         <img id="blockImg" src="block.png" style="display:none" />
         <img id="wallImg" src="wall.png" style="display:none" />
@@ -44,7 +44,7 @@
                 controlledFourPieces.draw(gc)
                 startButton.addEventListener("click", function() {
                     music.play()
-                    setInterval(timeElapse, 1000)
+                    setInterval(timeElapse, 150)
                 })
                 pauseButton.addEventListener("click", function() {
                     music.pause()

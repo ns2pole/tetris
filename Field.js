@@ -28,11 +28,11 @@ class Field {
     
     getBlocks() {
         let blocks = new Array();
-        for( let i = 0; i < this.map.length; i++ ){
-            for( let j = 0; j < this.map[i].length; j++ ){
+        for( let y = 0; y < this.map.length; y++ ){
+            for( let x = 0; x < this.map[y].length; x++ ){
                 //固まったブロックは2で表現する。
-                if( this.map[i][j] == FIXED_BLOCK_CODE ){
-                    blocks.push(new Block(j, i, BLOCK_SIZE) )
+                if( this.map[y][x] == FIXED_BLOCK_CODE ){
+                    blocks.push(new Block(new Vec2D(x, y)))
                 }
             }
         }
@@ -41,10 +41,10 @@ class Field {
 
     getWalls() {
         let walls = new Array();
-        for( let i = 0; i < this.map.length; i++ ){
-            for( let j = 0; j < this.map[i].length; j++ ){
-                if( this.map[i][j] == WALL_CODE ){
-                    walls.push(new Wall(j, i) )
+        for( let y = 0; y < this.map.length; y++ ){
+            for( let x = 0; x < this.map[y].length; x++ ){
+                if( this.map[y][x] == WALL_CODE ){
+                    walls.push(new Wall(new Vec2D(x, y)))
                 }
             }
         }
@@ -65,7 +65,7 @@ class Field {
 
     place(fourPiece) {
         for( let i = 0; i < fourPiece.blocks.length; i++ ){
-            this.map[fourPiece.blocks[i].y][fourPiece.blocks[i].x] = FIXED_BLOCK_CODE;
+            this.map[fourPiece.blocks[i].position.y][fourPiece.blocks[i].position.x] = FIXED_BLOCK_CODE;
         }
     }
 }

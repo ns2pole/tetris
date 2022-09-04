@@ -1,12 +1,13 @@
 class Shape_S extends FourPieces {
-    constructor(xPosition, yPosition) {
-        super(xPosition, yPosition); // 仕様上super()をthisを使う前にsuper()を呼び出しておく必要がある。
+    constructor(positionVec2D) {
+        super(positionVec2D); // 仕様上super()をthisを使う前にsuper()を呼び出しておく必要がある。
         this.blocks = new Array();
-        this.blocks.push(new Block(this.x, this.y, BLOCK_SIZE));
-        this.blocks.push(new Block(this.x + 1, this.y, BLOCK_SIZE));
-        this.blocks.push(new Block(this.x - 1, this.y + 1, BLOCK_SIZE));
-        this.blocks.push(new Block(this.x, this.y + 1, BLOCK_SIZE));
+        this.blocks.push(new Block(this.position, BLOCK_SIZE));
+        this.blocks.push(new Block(this.position.getAddedVecFor(new Vec2D(1, 0)), BLOCK_SIZE));
+        this.blocks.push(new Block(this.position.getAddedVecFor(new Vec2D(-1, 1)), BLOCK_SIZE));
+        this.blocks.push(new Block(this.position.getAddedVecFor(new Vec2D(0, 1)), BLOCK_SIZE));
         this.shapeCode = SHAPE_CODE_OF_SHAPE_S;
+        console.log(this.position);
     }
 
     draw(context2d) {

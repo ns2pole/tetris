@@ -1,7 +1,6 @@
 class FourPieces {
-    constructor(xPosition, yPosition) {
-        this.x = xPosition;
-        this.y = yPosition;
+    constructor(positionVec2D) {
+        this.position = positionVec2D
         this.shapeCode;
     }
 
@@ -21,31 +20,31 @@ class FourPieces {
     static getInitFourPieces() {
         switch (FourPieces.getShapeCodeRandomly()) {
             case SHAPE_CODE_OF_SHAPE_S:
-                return new Shape_S(INITIAL_POSITION.x, INITIAL_POSITION.y);
+                return new Shape_S(INITIAL_POSITION_VEC_2D);
             case SHAPE_CODE_OF_SHAPE_T:
-                return new Shape_T(INITIAL_POSITION.x, INITIAL_POSITION.y);
+                return new Shape_T(INITIAL_POSITION_VEC_2D);
         }
     }
 
-    static getFourPiecesOf(shapeCode, xPosition, yPosition) {
+    static getFourPiecesOf(shapeCode, positionVec2D) {
         switch (shapeCode) {
             case SHAPE_CODE_OF_SHAPE_S:
-                return new Shape_S(xPosition, yPosition);
+                return new Shape_S(positionVec2D);
             case SHAPE_CODE_OF_SHAPE_T:
-                return new Shape_T(xPosition, yPosition);
+                return new Shape_T(positionVec2D);
         }
     }
 
     getInstanceMovedDown() {
-        return FourPieces.getFourPiecesOf(this.shapeCode, this.x, this.y + 1);
+        return FourPieces.getFourPiecesOf(this.shapeCode, this.position.getAddedVecFor(new Vec2D(0, 1)));
     }
 
     getInstanceMovedRight() {
-        return FourPieces.getFourPiecesOf(this.shapeCode, this.x + 1, this.y);
+        return FourPieces.getFourPiecesOf(this.shapeCode, this.position.getAddedVecFor(new Vec2D(1, 0)));
     }
 
     getInstanceMovedLeft() {
-        return FourPieces.getFourPiecesOf(this.shapeCode, this.x - 1, this.y);
+        return FourPieces.getFourPiecesOf(this.shapeCode, this.position.getAddedVecFor(new Vec2D(-1, 0)));
     }
 
 }

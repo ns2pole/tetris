@@ -1,4 +1,4 @@
-const INITIAL_POSITION = {x: 2, y: 1}
+const INITIAL_POSITION_VEC_2D = new Vec2D(2, 1)
 const ONE_CELL_SIZE = 30
 const BLOCK_SIZE = ONE_CELL_SIZE
 const WALL_CODE = 1;
